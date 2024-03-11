@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import 'src/navigation_controls.dart';
 import 'src/web_view_stack.dart';
+
+// commentato perché stiamo usando l'appbar invisibile.
+// Decommentare per far funzionare quella con titolo e pulsanti
+/*
+import 'src/navigation_controls.dart';
+ */
 
 void main() {
   runApp(
@@ -21,21 +25,36 @@ class WebViewApp extends StatefulWidget {
 }
 
 class _WebViewAppState extends State<WebViewApp> {
-  late final WebViewController controller;
+  late final WebViewController controllerGlobal;
+
+Future<bool> _exitApp(BuildContext context) async {
+    if (await controllerGlobal.canGoBack()) {
+      print("Pulsante indietro premuto");
+      controllerGlobal.goBack();
+      return Future.value(true);}
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Impossibile tornare ad una pagina precedente")),
+      );
+      return Future.value(false);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    controller = WebViewController()
+    controllerGlobal = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted) //parametro aggiunto altrimenti non funziona nessuna pagina che utilizzi javascript
       ..loadRequest(
-        Uri.parse('https://live.intercollegiale.it'),
+        Uri.parse('http://193.204.47.112/live/'),
       );
   }
 
  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return WillPopScope(
+       onWillPop: () => _exitApp(context),
+   child:  Scaffold(
 
 //appbar predefinita con titolo e tasti di navigazione
 /*       appBar: AppBar(
@@ -55,9 +74,10 @@ class _WebViewAppState extends State<WebViewApp> {
         ),
       ),
 
-      // corpo dello schermo
+// corpo dello schermo
       body: WebViewStack(
-          controller: controller),
-    );
+          controller: controllerGlobal),
+    )
+       );
   }
 }
