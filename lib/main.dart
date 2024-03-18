@@ -46,7 +46,7 @@ Future<bool> _exitApp(BuildContext context) async {
     controllerGlobal = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted) //parametro aggiunto altrimenti non funziona nessuna pagina che utilizzi javascript
       ..loadRequest(
-        Uri.parse('http://193.204.47.112/live/'),
+        Uri.parse('https://live.intercollegiale.it'),
       );
   }
 
