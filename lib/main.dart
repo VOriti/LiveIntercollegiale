@@ -4,9 +4,8 @@ import 'src/web_view_stack.dart';
 
 // commentato perché stiamo usando l'appbar invisibile.
 // Decommentare per far funzionare quella con titolo e pulsanti
-/*
-import 'src/navigation_controls.dart';
- */
+// eliminata perché Google non analilzza anche il codice commentato e pensava fosse un errore,
+// per ritrovarla vai alla 3.0.0
 
 void main() {
   runApp(
@@ -57,14 +56,8 @@ Future<bool> _exitApp(BuildContext context) async {
    child:  Scaffold(
 
 //appbar predefinita con titolo e tasti di navigazione
-/*       appBar: AppBar(
-        title: const Text('Live Intercollegiale'),
-
-        actions: [
-          NavigationControls(controller: controller),
-        ],
-      ),
-*/
+// eliminata perché Google non analilzza anche il codice commentato e pensava fosse un errore,
+// per ritrovarla vai alla 3.0.0
 
 // appbar nuova che evita la sovrapposizione con la barra di android ma non mostra nulla
       appBar: PreferredSize(
